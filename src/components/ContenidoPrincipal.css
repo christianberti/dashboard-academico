@@ -1,0 +1,21 @@
+.contenedor-main {
+    padding: var(--espaciado-m);
+}
+
+.contenedor-main header {
+    padding-bottom: var(--espaciado-m);
+    color: var(--color-primario)
+}
+
+.contenedor-metricas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--espaciado-m);
+}
+
+.contenedor-grafico {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--espaciado-m);
+    justify-items: center;
+}

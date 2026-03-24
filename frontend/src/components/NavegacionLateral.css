@@ -1,0 +1,34 @@
+.barra-lateral {
+  background-color: var(--color-primario);
+  color: white;
+  padding: var(--espaciado-m);
+  display: flex;
+  flex-direction: column;
+}
+
+.encabezado-nav{
+  margin-bottom: var(--espaciado-m);
+  border-bottom: 2px solid rgba(214, 214, 214, 0.2);
+}
+
+.lista-nav {
+  list-style: none
+}
+
+.lista-nav li {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.item-nav a {
+  display: block; /* Fundamental para que ocupe todo el ancho */
+  padding: var(--espaciado-m); /* El padding ACÁ hace que toda la caja sea clickeable */
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.item-nav a:hover {
+  background-color: var(--color-primario-claro);
+}

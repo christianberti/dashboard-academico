@@ -1,0 +1,58 @@
+.contenedor-lista-materias {
+  text-align: left;
+  padding: var(--espaciado-l);
+  color: var(--color-primario);
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaciado-l);
+}
+
+.contenedor-lista-materias input {
+  align-self: center;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.contenedor-lista-materias input:focus {
+  border-color: var(--color-primario);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.titulo-seccion {
+  font-weight: 700;
+  color: var(--color-primario);
+}
+
+.contenedor-filtros-anio {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.boton-filtro {
+  background-color: var(--color-primario);
+  color: white;
+}
+
+.boton-filtro:hover {
+  background-color: var(--color-primario-claro);
+  color: white;
+}
+
+.boton-filtro.activo {
+  background-color: var(--color-primario-claro);
+  color: white;
+}
+
+/* Grilla responsiva para las tarjetas */
+.grilla-materias {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}

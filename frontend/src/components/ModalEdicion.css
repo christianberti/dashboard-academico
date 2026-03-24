@@ -1,0 +1,53 @@
+.contenedor-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.tarjeta-modal {
+    padding: var(--espaciado-l);
+    border-radius: var(--radio-borde);
+    background-color: #ccc;
+    font-size: 16px;
+    font-weight: 600;
+    box-shadow: var(--sombra);
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaciado-m);
+}
+
+.tarjeta-modal select {
+    padding: var(--espaciado-xs);
+    border-radius: var(--radio-borde);
+    border: 1px solid var(--color-primario);
+    align-self: center;
+}
+
+.boton-cerrar {
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    align-self: flex-end;
+}
+.boton-cerrar:hover {
+    background: var(--color-primario-claro);
+}
+
+.boton-guardar {
+    align-self: center;
+}
+.boton-guardar:hover {
+    background: var(--color-primario);
+    color: white;
+}

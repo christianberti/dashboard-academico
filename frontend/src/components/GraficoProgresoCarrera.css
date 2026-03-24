@@ -1,0 +1,14 @@
+.contenedor-grafico-progreso {
+  text-align: center;
+  margin-top: var(--espaciado-l);
+  padding: var(--espaciado-l);
+  border-radius: var(--radio-borde);
+  color: var(--color-primario);
+  background-color: #ccc;
+  box-shadow: var(--sombra);
+  width: 100%;
+}
+
+.mensaje-resumen-final {
+  padding: var(--espaciado-m)
+}

@@ -1,7 +1,0 @@
-.contenedor-tarjeta {
-    background-color: var(--color-primario);
-    color: white;
-    padding: var(--espaciado-m);
-    border-radius: var(--radio-borde);
-    box-shadow: var(--sombra);
-}

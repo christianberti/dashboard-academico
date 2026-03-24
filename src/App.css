@@ -1,5 +1,0 @@
-.contenedor-principal {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  height: 100vh;
-}

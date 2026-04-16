@@ -10,7 +10,6 @@ const NavegacionLateral = ({ carreraActiva, todasCarreras, alCambiarCarrera, onA
   const secciones = [
     "Resumen",
     "Materias",
-    "Recursos Importantes",
     "Configuracion",
   ];
 
@@ -30,22 +29,22 @@ const NavegacionLateral = ({ carreraActiva, todasCarreras, alCambiarCarrera, onA
               <span className="nombre-carrera">{carreraActiva?.carreras?.nombre || "Cargando..."}</span>
             </div>
             <ChevronDown className={`flecha-selector ${selectorAbierto ? 'abierta' : ''}`} />
-            
+
             {selectorAbierto && (
               <div className="dropdown-carreras">
                 {todasCarreras.map(item => (
-                  <div 
-                    key={item.id_carrera} 
+                  <div
+                    key={item.id_carrera}
                     className={`opcion-dropdown ${item.id_carrera === carreraActiva?.id_carrera ? 'activa' : ''}`}
                     onClick={() => {
-                        alCambiarCarrera(item.id_carrera);
-                        alCerrarMenu();
+                      alCambiarCarrera(item.id_carrera);
+                      alCerrarMenu();
                     }}
                   >
                     {item.carreras.nombre}
                   </div>
                 ))}
-                <div 
+                <div
                   className="opcion-dropdown inscribir-nueva"
                   onClick={(e) => {
                     e.stopPropagation();

@@ -15,10 +15,10 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
             setMensaje({ tipo: 'error', texto: 'Las contraseñas no coinciden' });
             return;
         }
-        
+
         setCargando(true);
         const { error } = await supabase.auth.updateUser({ password: nuevaPassword });
-        
+
         if (error) {
             setMensaje({ tipo: 'error', texto: error.message });
         } else {
@@ -44,18 +44,18 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
                 .eq('user_id', user.id)
                 .filter('id_materia', 'in', (
                     supabase
-                    .from('plan_estudios')
-                    .select('id')
-                    .eq('id_carrera', idCarrera)
+                        .from('plan_estudios')
+                        .select('id')
+                        .eq('id_carrera', idCarrera)
                 ));
-            
+
             // Nota: El filtro 'in' con subquery directo a veces falla en Supabase client antiguo. 
             // Preferimos traer los IDs primero por seguridad.
             const { data: idsMaterias } = await supabase
                 .from('plan_estudios')
                 .select('id')
                 .eq('id_carrera', idCarrera);
-            
+
             const idsList = idsMaterias.map(m => m.id);
 
             await supabase
@@ -72,7 +72,7 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
                 .eq('id_carrera', idCarrera);
 
             if (error) throw error;
-            
+
             setMensaje({ tipo: 'exito', texto: `Carrera "${nombreCarrera}" eliminada.` });
             onCarreraEliminada();
         } catch (err) {
@@ -85,7 +85,7 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
     const eliminarCuenta = async () => {
         const confirm1 = window.confirm("¡ATENCIÓN! ¿Estás COMPLETAMENTE SEGURO de querer eliminar tu cuenta? Esta acción es irreversible y borrará todo tu historial académico.");
         if (!confirm1) return;
-        
+
         const confirm2 = window.prompt("Para confirmar, escribe 'ELIMINAR MI CUENTA' en mayúsculas:");
         if (confirm2 !== "ELIMINAR MI CUENTA") {
             alert("Confirmación incorrecta. Abortando.");
@@ -100,7 +100,7 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
             await supabase.from('usuarios_carreras').delete().eq('user_id', user.id);
             await supabase.from('progreso_estudiante').delete().eq('user_id', user.id);
             await supabase.from('eventos_examenes').delete().eq('user_id', user.id);
-            
+
             // Cerrar sesión
             await supabase.auth.signOut();
             window.location.reload();
@@ -135,8 +135,8 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
                     <form className="form-config" onSubmit={cambiarPassword}>
                         <div className="campo-form">
                             <label>Nueva Contraseña</label>
-                            <input 
-                                type="password" 
+                            <input
+                                type="password"
                                 value={nuevaPassword}
                                 onChange={(e) => setNuevaPassword(e.target.value)}
                                 placeholder="Mínimo 6 caracteres"
@@ -146,8 +146,8 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
                         </div>
                         <div className="campo-form">
                             <label>Confirmar Contraseña</label>
-                            <input 
-                                type="password" 
+                            <input
+                                type="password"
                                 value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                                 placeholder="Repite la contraseña"
@@ -170,7 +170,7 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
                         {carrerasUsuario.map(item => (
                             <div key={item.id_carrera} className="item-carrera-config">
                                 <span>{item.carreras.nombre}</span>
-                                <button 
+                                <button
                                     className="boton-borrar-carrera"
                                     onClick={() => eliminarCarrera(item.id_carrera, item.carreras.nombre)}
                                     title="Eliminar esta carrera"
@@ -187,7 +187,7 @@ const Configuracion = ({ carrerasUsuario, onCarreraEliminada }) => {
                 <section className="tarjeta-config zona-peligro">
                     <div className="titulo-seccion-config">
                         <AlertTriangle size={22} />
-                        <h2>Zona de Peligro</h2>
+                        <h2>Borrar Cuenta</h2>
                     </div>
                     <p>Una vez que eliminas tu cuenta, no hay vuelta atrás. Por favor, asegúrate.</p>
                     <button className="boton-eliminar-cuenta" onClick={eliminarCuenta} disabled={cargando}>

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import ContenidoPrincipal from "./components/ContenidoPrincipal";

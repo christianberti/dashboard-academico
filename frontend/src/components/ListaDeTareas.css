@@ -1,111 +1,152 @@
 .contenedor-lista-tareas {
-  text-align: center;
-  margin-top: var(--espaciado-l);
   padding: var(--espaciado-l);
   border-radius: var(--radio-borde);
-  color: var(--color-primario);
-  background-color: #ccc;
+  color: var(--color-texto);
+  background: white;
   box-shadow: var(--sombra);
+  border: 1px solid var(--color-borde);
   width: 100%;
+  transition: var(--transicion);
+  display: flex;
+  flex-direction: column;
+}
 
+.contenedor-lista-tareas:hover {
+  box-shadow: var(--sombra-hover);
+}
+
+.contenedor-lista-tareas h2 {
+    color: var(--color-primario);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: var(--espaciado-m);
+    text-align: left;
 }
 
 .formulario-tareas {
   display: flex;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .input-tarea {
   flex: 1;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  background-color: var(--color-fondo);
+  border: 1px solid var(--color-borde);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
   outline: none;
-  transition: all 0.2s;
+  transition: var(--transicion);
+  font-family: inherit;
 }
 
 .input-tarea:focus {
-  border-color: var(--color-primario);
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+  border-color: var(--color-primario-claro);
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(173, 5, 24, 0.1);
 }
 
 .boton-agregar {
-  padding: 0.5rem;
-  background-color: var(--color-primario-claro);
+  width: 42px;
+  height: 42px;
+  background-color: var(--color-primario);
   color: white;
-  border-radius: 0.75rem;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
 
 .boton-agregar:hover {
-  filter: brightness(1.1);
+  background-color: var(--color-primario-claro);
+  transform: scale(1.05);
 }
 
 .lista-items-tareas {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  max-height: 16rem;
+  gap: 0.5rem;
+  max-height: 400px;
   overflow-y: auto;
-  padding-right: 0.25rem;
+  padding-right: 0.5rem;
+}
+
+/* Customize scrollbar */
+.lista-items-tareas::-webkit-scrollbar {
+    width: 6px;
+}
+.lista-items-tareas::-webkit-scrollbar-track {
+    background: transparent;
+}
+.lista-items-tareas::-webkit-scrollbar-thumb {
+    background: var(--color-borde);
+    border-radius: 10px;
 }
 
 .item-tarea {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  text-align: left;
+  padding: 0.75rem;
+  border-radius: 8px;
+  transition: var(--transicion);
+  border: 1px solid transparent;
+}
+
+.item-tarea:hover {
+    background-color: var(--color-neutro-fondo);
 }
 
 .checkbox-tarea {
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 0.375rem;
-  border: 1px solid #424242;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 6px;
+  border: 2px solid var(--color-borde);
   display: flex;
   align-items: center;
   justify-content: center;
   background: white;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transicion);
+  padding: 0;
 }
 
 .checkbox-tarea-completado {
-  background-color: #10b981;
-  border-color: white;
+  background-color: var(--color-exito);
+  border-color: var(--color-exito);
   color: white;
-}
-
-.checkbox-tarea-completado svg {
-  flex-shrink: 0; /* Evita que el botón "aplane" el ícono */
 }
 
 /* Texto de la tarea */
 .texto-tarea {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   flex: 1;
-  color: #685d5d;
+  color: var(--color-texto);
+  font-weight: 500;
 }
 
 .texto-tarea-completado {
-  color: #918585;
+  color: var(--color-texto-secundario);
   text-decoration: line-through;
 }
 
 .boton-eliminar {
-  background: none;
-  border: none;
-  color: var(--color-primario);
-  cursor: pointer;
-  padding: 0.25rem;
-  transition: color 0.2s;
+  background: transparent;
+  padding: 0.5rem;
+  color: var(--color-texto-secundario);
+  opacity: 0;
+  transition: var(--transicion);
 }
 
 .item-tarea:hover .boton-eliminar {
+  opacity: 1;
   color: var(--color-primario-claro);
 }
+
+.boton-eliminar:hover {
+    background-color: #fee2e2;
+    border-radius: 6px;
+}
+

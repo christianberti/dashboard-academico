@@ -4,16 +4,14 @@ import ContenidoPrincipal from "./components/ContenidoPrincipal";
 import ListaMaterias from "./components/ListaMaterias";
 import NavegacionLateral from "./components/NavegacionLateral";
 import { useEffect, useState } from "react";
+import API_BASE_URL from "./config";
 
 function App() {
 
   const [materias, setMaterias] = useState([]);
   
     useEffect(() => {
-      const urlApi =
-        "http://localhost/proyecto-academico/backend/obtener_materias.php";
-  
-      fetch(urlApi)
+      fetch(`${API_BASE_URL}/obtener_materias.php`)
         .then((respuesta) => respuesta.json())
         .then((datos) => {
           setMaterias(datos);

@@ -1,7 +1,7 @@
 import React from "react";
 import './MateriasEnCurso.css'
 
-const MateriasEnCurso = ({enCurso}) => {
+const MateriasEnCurso = ({ enCurso }) => {
 
   return (
     <article className="container-en-curso">
@@ -14,7 +14,6 @@ const MateriasEnCurso = ({enCurso}) => {
             <span>{s.progress}</span>
           </div>
           <div className="materias-extras">
-            <span>Próximo parcial: {s.nextExam}</span>
             <p>Ver más</p>
           </div>
         </div>

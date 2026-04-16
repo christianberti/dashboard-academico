@@ -9,18 +9,21 @@
 
 .contenedor-lista-materias input {
   align-self: center;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  background-color: white;
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
   outline: none;
-  transition: all 0.2s;
+  width: 100%;
+  max-width: 400px;
+  transition: var(--transicion);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
 }
 
 .contenedor-lista-materias input:focus {
-  border-color: var(--color-primario);
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+  border-color: var(--color-primario-claro);
+  box-shadow: 0 0 0 3px rgba(173, 5, 24, 0.15);
 }
 
 .titulo-seccion {
@@ -36,18 +39,25 @@
 }
 
 .boton-filtro {
-  background-color: var(--color-primario);
-  color: white;
+  background-color: white;
+  color: var(--color-texto-secundario);
+  border: 1px solid var(--color-borde);
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 0.5rem 1.25rem;
 }
 
 .boton-filtro:hover {
-  background-color: var(--color-primario-claro);
-  color: white;
+  background-color: var(--color-neutro-fondo);
+  color: var(--color-texto);
 }
 
 .boton-filtro.activo {
-  background-color: var(--color-primario-claro);
+  background-color: var(--color-primario);
   color: white;
+  border-color: var(--color-primario);
+  box-shadow: 0 4px 10px rgba(140, 0, 17, 0.2);
 }
 
 /* Grilla responsiva para las tarjetas */

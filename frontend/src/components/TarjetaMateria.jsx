@@ -1,7 +1,7 @@
 import { Award, FileText, Pencil } from "lucide-react";
 import './TarjetaMateria.css'
 
-const TarjetaMateria = ({materia, obtenerClaseEstado, abrirEditor}) => {
+const TarjetaMateria = ({materia, obtenerClaseEstado, abrirEditor, abrirArchivos}) => {
   return (
     <div key={materia.id} className="tarjeta-materia">
       <div className="info-principal">
@@ -24,7 +24,11 @@ const TarjetaMateria = ({materia, obtenerClaseEstado, abrirEditor}) => {
           >
             <Pencil size={16} />
           </button>
-          <button className="boton-archivos" title="Ver archivos">
+          <button 
+            className="boton-archivos" 
+            title="Ver archivos"
+            onClick={() => abrirArchivos(materia)}
+          >
             <FileText size={16} />
           </button>
         </div>

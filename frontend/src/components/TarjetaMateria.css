@@ -1,18 +1,21 @@
 /* Estilo de la Tarjeta Individual */
 .tarjeta-materia {
-  padding: var(--espaciado-xs);
+  padding: var(--espaciado-m);
   border-radius: var(--radio-borde);
-  background-color: #ccc;
+  background-color: white;
+  border: 1px solid var(--color-borde);
   font-size: 16px;
-  font-weight: 600;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: var(--sombra);
+  transition: var(--transicion);
 }
 
 .tarjeta-materia:hover {
-  border: 1px solid var(--color-primario-claro);
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-hover);
+  border-color: rgba(140, 0, 17, 0.2);
 }
 
 /* Cabecera de la tarjeta: Estado y Nombre */
@@ -22,11 +25,13 @@
 
 .badge-estado {
   display: inline-block;
-  padding: 0.25rem 0.75rem;
+  padding: 0.35rem 0.85rem;
   border-radius: 9999px;
   font-size: 0.75rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
 }
 
 .tarjeta-materia h4 {
@@ -38,20 +43,20 @@
 
 /* Colores según el estado de la materia */
 .estado-aprobada {
-  background-color: var(--color-primario);
-  color: white;
+  background-color: var(--color-exito-fondo);
+  color: var(--color-exito);
 }
 .estado-en-curso {
-  background-color: var(--color-secundario);
-  color: #000000;
+  background-color: #e0f2fe;
+  color: #0369a1;
 }
 .estado-final-pendiente {
-  background-color: #eee;
-  color: #000000;
+  background-color: var(--color-alerta-fondo);
+  color: var(--color-alerta);
 }
 .estado-pendiente {
-  background-color: #818181;
-  color: white;
+  background-color: var(--color-neutro-fondo);
+  color: var(--color-texto-secundario);
 }
 
 /* Pie de la tarjeta: Nota e Íconos */
@@ -79,16 +84,21 @@
 }
 
 .boton-archivos {
-  background: var(--color-primario);
-  border: none;
-  color: white;
+  background: white;
+  border: 1px solid var(--color-borde);
+  color: var(--color-texto-secundario);
   padding: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transicion);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .boton-archivos:hover {
   background-color: var(--color-primario-claro);
+  border-color: var(--color-primario-claro);
   color: white;
+  transform: scale(1.05);
 }

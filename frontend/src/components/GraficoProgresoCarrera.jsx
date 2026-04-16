@@ -18,17 +18,17 @@ const GraficoProgresoCarrera = ({datosMaterias}) => {
         { 
             name: 'Aprobadas', 
             value: aprobadas, 
-            fill: 'var(--color-primario)'
+            fill: '#059669' // var(--color-exito)
         },
         { 
             name: 'En Curso', 
             value: enCurso, 
-            fill: 'var(--color-secundario)'
+            fill: '#0284c7' // var(--color-info)
         },
         { 
             name: 'Pendientes', 
             value: pendientes, 
-            fill: '#818181'
+            fill: '#94a3b8' // var(--color-texto-secundario)
         }
     ];
 

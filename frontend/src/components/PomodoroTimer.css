@@ -1,48 +1,69 @@
 .contenedor-timer {
   text-align: center;
   padding: var(--espaciado-l);
-  margin-top: var(--espaciado-l);
   border-radius: var(--radio-borde);
-  color: var(--color-primario);
-  background-color: #ccc;
+  color: var(--color-texto);
+  background: white;
   box-shadow: var(--sombra);
+  border: 1px solid var(--color-borde);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 240px;
+  height: auto;
+  min-height: 240px;
+  transition: var(--transicion);
+}
+
+.contenedor-timer:hover {
+  box-shadow: var(--sombra-hover);
+}
+
+.contenedor-timer h2 {
+    color: var(--color-primario);
+    font-size: 1.25rem;
+    font-weight: 700;
 }
 
 .contenido-timer {
   display: flex;
   flex-direction: column;
   gap: var(--espaciado-l);
+  flex-grow: 1;
+  justify-content: center;
 }
 
 .contenido-timer p {
-  font-size: 40px;
-  font-weight: 600;
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-primario);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.05em;
 }
 
 .botones-timer {
   display: flex;
   justify-content: center;
-  gap: var(--espaciado-l);
+  gap: var(--espaciado-m);
 }
 
-.contenedor-timer .boton-primario {
-  background-color: var(--color-fondo);
-}
-
-.contenedor-timer .boton-primario:hover {
-  background-color: #ddd;
-}
-
-.contenedor-timer .boton-secundario {
+.boton-primario {
   background-color: var(--color-primario);
-  color: #fff;
+  color: white;
 }
 
-.contenedor-timer .boton-secundario:hover {
+.boton-primario:hover {
   background-color: var(--color-primario-claro);
+  transform: translateY(-2px);
 }
+
+.boton-secundario {
+  background-color: var(--color-neutro-fondo);
+  color: var(--color-texto-secundario);
+}
+
+.boton-secundario:hover {
+  background-color: #e2e8f0;
+  color: var(--color-texto);
+}
+

@@ -2,11 +2,14 @@ import { useState } from "react";
 import "./ListaMaterias.css";
 import TarjetaMateria from "./TarjetaMateria";
 import ModalEdicion from "./ModalEdicion";
+import ModalArchivos from "./ModalArchivos";
+import API_BASE_URL from "../config";
 
 const ListaMaterias = ({ materias, setMaterias }) => {
     const [busqueda, setBusqueda] = useState("");
     const [anioSeleccionado, setAnioSeleccionado] = useState("Todos");
-    const [modalAbierto, setModalAbierto] = useState(false);
+    const [modalEdicionAbierto, setModalEdicionAbierto] = useState(false);
+    const [modalArchivosAbierto, setModalArchivosAbierto] = useState(false);
     const [materiaSeleccionada, setMateriaSeleccionada] = useState(null);
 
     // Función para definir el color de la etiqueta según el estado
@@ -27,7 +30,6 @@ const ListaMaterias = ({ materias, setMaterias }) => {
         materia.nombre.toLowerCase().includes(busqueda.toLowerCase()),
     );
 
-    // Filtramos las materias que ya pasaron por el buscador, ahora por el botón de año
     const materiasAMostrar = materiasFiltradas.filter(
         (m) =>
             anioSeleccionado === "Todos" ||
@@ -36,14 +38,18 @@ const ListaMaterias = ({ materias, setMaterias }) => {
 
     const abrirEditor = (materia) => {
         setMateriaSeleccionada(materia);
-        setModalAbierto(true);
+        setModalEdicionAbierto(true);
+    };
+
+    const abrirArchivos = (materia) => {
+        setMateriaSeleccionada(materia);
+        setModalArchivosAbierto(true);
     };
 
     const actualizarMateriaEnBD = async ({ id, nuevoEstado, nuevaNota }) => {
         try {
-            // 1. Enviamos los datos al backend (PHP)
             const respuesta = await fetch(
-                "http://localhost/proyecto-academico/backend/actualizar_materia.php",
+                `${API_BASE_URL}/actualizar_materia.php`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -59,30 +65,19 @@ const ListaMaterias = ({ materias, setMaterias }) => {
             if (respuesta.ok) {
                 setMaterias((prevMaterias) =>
                     prevMaterias.map((m) => {
-                        // Usamos == para evitar problemas de String vs Number
                         if (m.id == id) {
-                            console.log(
-                                "¡Materia encontrada! Actualizando UI...",
-                            );
                             return {
                                 ...m,
                                 estado: nuevoEstado,
-                                nota:
-                                    nuevoEstado === "Aprobada"
-                                        ? nuevaNota
-                                        : null,
+                                nota: nuevoEstado === "Aprobada" ? nuevaNota : null,
                             };
                         }
                         return m;
                     }),
                 );
 
-                setModalAbierto(false);
+                setModalEdicionAbierto(false);
                 setMateriaSeleccionada(null);
-
-                console.log("Materia actualizada con éxito en el Plan 2021");
-            } else {
-                console.error("Error al actualizar en el servidor");
             }
         } catch (error) {
             console.error("Error de red:", error);
@@ -91,10 +86,8 @@ const ListaMaterias = ({ materias, setMaterias }) => {
 
     return (
         <div className="contenedor-lista-materias">
-            {/* 1. Título */}
             <h1 className="titulo-seccion">Plan de Estudio</h1>
 
-            {/* 2. Input de búsqueda */}
             <input
                 type="text"
                 className="input-busqueda"
@@ -103,7 +96,6 @@ const ListaMaterias = ({ materias, setMaterias }) => {
                 onChange={(e) => setBusqueda(e.target.value)}
             />
 
-            {/* 3. Botones por año (Filtros rápidos) */}
             <div className="contenedor-filtros-anio">
                 {["Todos", "0", "1", "2", "3", "4", "5"].map((anio) => (
                     <button
@@ -120,7 +112,6 @@ const ListaMaterias = ({ materias, setMaterias }) => {
                 ))}
             </div>
 
-            {/* 4. Materias (Grilla filtrada por búsqueda y por botón) */}
             <div className="grilla-materias">
                 {materiasAMostrar.length > 0 ? (
                     materiasAMostrar.map((materia) => (
@@ -129,6 +120,7 @@ const ListaMaterias = ({ materias, setMaterias }) => {
                             materia={materia}
                             obtenerClaseEstado={obtenerClaseEstado}
                             abrirEditor={abrirEditor}
+                            abrirArchivos={abrirArchivos}
                         />
                     ))
                 ) : (
@@ -136,11 +128,18 @@ const ListaMaterias = ({ materias, setMaterias }) => {
                 )}
             </div>
 
-            {modalAbierto && materiaSeleccionada && (
+            {modalEdicionAbierto && materiaSeleccionada && (
                 <ModalEdicion
                     materia={materiaSeleccionada}
-                    alCerrar={() => setModalAbierto(false)}
+                    alCerrar={() => setModalEdicionAbierto(false)}
                     alGuardar={actualizarMateriaEnBD}
+                />
+            )}
+
+            {modalArchivosAbierto && materiaSeleccionada && (
+                <ModalArchivos 
+                    materia={materiaSeleccionada}
+                    onClose={() => setModalArchivosAbierto(false)}
                 />
             )}
         </div>
@@ -148,3 +147,4 @@ const ListaMaterias = ({ materias, setMaterias }) => {
 };
 
 export default ListaMaterias;
+

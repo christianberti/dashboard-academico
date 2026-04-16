@@ -1,7 +1,32 @@
 .contenedor-tarjeta {
-    background-color: var(--color-primario);
-    color: white;
-    padding: var(--espaciado-m);
+    background-color: white;
+    color: var(--color-texto);
+    padding: var(--espaciado-l);
     border-radius: var(--radio-borde);
     box-shadow: var(--sombra);
+    border: 1px solid var(--color-borde);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: var(--transicion);
 }
+
+.contenedor-tarjeta:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover);
+    border-color: rgba(140, 0, 17, 0.2);
+}
+
+.contenedor-tarjeta h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-texto-secundario);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.contenedor-tarjeta p {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-primario);
+}

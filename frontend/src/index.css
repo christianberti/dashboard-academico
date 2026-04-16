@@ -1,11 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
   /* Paleta de colores */
-  --color-fondo: #e9e9e9;
+  --color-fondo: #edeff2;
   --color-primario: #8C0011;
-  --color-primario-claro: #c8091c;
+  --color-primario-claro: #ad0518;
   --color-secundario: #f4491a;
-  --color-texto: #333;
-  --color-exito: #27ae60;
+  --color-info: #0284c7;
+  --color-info-fondo: #e0f2fe;
+  --color-texto: #0f172a;
+  --color-texto-secundario: #64748b;
+  --color-exito: #059669;
+  --color-exito-fondo: #d1fae5;
+  --color-borde: #e2e8f0;
+  --color-alerta: #d97706;
+  --color-alerta-fondo: #fef3c7;
+  --color-neutro-fondo: #f1f5f9;
   
   /* Espaciados y bordes */
   --espaciado-xs: 12px;
@@ -13,10 +23,11 @@
   --espaciado-m: 20px;
   --espaciado-l: 24px;
   --espaciado-xl: 28px;
-  --radio-borde: 16px;
-  --sombra: 4px 4px 6px 2px rgba(0,0,0,0.4);
+  --radio-borde: 12px;
+  --sombra: 0 4px 15px rgba(0, 0, 0, 0.05);
+  --sombra-hover: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --transicion: all 0.3s ease;
 }
-
 
 * {
   box-sizing: border-box;
@@ -27,12 +38,16 @@
 body {
   background-color: var(--color-fondo);
   color: var(--color-texto);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 button {
-  padding: var(--espaciado-xs);
+  padding: var(--espaciado-xs) var(--espaciado-m);
   border: none;
   border-radius: var(--radio-borde);
   cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  transition: var(--transicion);
 }

@@ -10,16 +10,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit;
 }
 
-// 2. Conexión a la base de datos (Ajustá tus credenciales)
-$servidor = "localhost";
-$usuario_db = "root";
-$password_db = "";
-$nombre_db = "gestion_academica"; // Cambiá esto al nombre de tu DB
+// 2. Conexión a la base de datos (InfinityFree)
+$servidor = "sql100.infinityfree.com";
+$usuario_db = "if0_41679743";
+$password_db = "FKO6frkXtSnW";
+$nombre_db = "if0_41679743_gestion_academica";
 
 $conexion = new mysqli($servidor, $usuario_db, $password_db, $nombre_db);
 
 if ($conexion->connect_error) {
-    die(json_encode(["error" => "Error de conexión"]));
+    die(json_encode(["error" => "Error de conexión remota"]));
 }
 
 $json = file_get_contents("php://input");

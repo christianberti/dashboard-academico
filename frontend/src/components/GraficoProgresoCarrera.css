@@ -1,12 +1,41 @@
 .contenedor-grafico-progreso {
-  text-align: center;
-  margin-top: var(--espaciado-l);
-  padding: var(--espaciado-l);
+  text-align: left;
+  padding: var(--espaciado-xl);
   border-radius: var(--radio-borde);
-  color: var(--color-primario);
-  background-color: #ccc;
+  color: var(--color-texto);
+  background: white;
   box-shadow: var(--sombra);
+  border: 1px solid var(--color-borde);
   width: 100%;
+  transition: var(--transicion);
+}
+
+.contenedor-grafico-progreso:hover {
+    box-shadow: var(--sombra-hover);
+}
+
+.encabezado-grafico {
+    margin-bottom: var(--espaciado-m);
+}
+
+.encabezado-grafico h2 {
+    color: var(--color-primario);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.mensaje-resumen-final {
+  padding-top: var(--espaciado-m);
+  font-size: 0.95rem;
+  color: var(--color-texto-secundario);
+  border-top: 1px solid var(--color-neutro-fondo);
+  text-align: center;
+}
+
+.porcentaje-resaltado {
+    font-weight: 800;
+    color: var(--color-primario);
+    font-size: 1.1rem;
 }
 
 .mensaje-resumen-final {

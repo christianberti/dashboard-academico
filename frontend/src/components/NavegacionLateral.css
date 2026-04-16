@@ -1,34 +1,43 @@
 .barra-lateral {
   background-color: var(--color-primario);
   color: white;
-  padding: var(--espaciado-m);
+  padding: var(--espaciado-m) 1rem;
   display: flex;
   flex-direction: column;
+  box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+  z-index: 10;
 }
 
-.encabezado-nav{
-  margin-bottom: var(--espaciado-m);
-  border-bottom: 2px solid rgba(214, 214, 214, 0.2);
+.encabezado-nav {
+  margin-bottom: var(--espaciado-l);
+  padding: 0 0.5rem 1.5rem 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .lista-nav {
-  list-style: none
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .lista-nav li {
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .item-nav a {
-  display: block; /* Fundamental para que ocupe todo el ancho */
-  padding: var(--espaciado-m); /* El padding ACÁ hace que toda la caja sea clickeable */
+  display: block;
+  padding: 0.85rem 1rem;
   text-decoration: none;
-  color: inherit;
+  color: rgba(255, 255, 255, 0.9);
   width: 100%;
-  transition: background-color 0.3s;
+  border-radius: 8px;
+  transition: var(--transicion);
+  font-weight: 500;
 }
 
 .item-nav a:hover {
-  background-color: var(--color-primario-claro);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(4px);
 }

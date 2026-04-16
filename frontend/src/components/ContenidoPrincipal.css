@@ -1,27 +1,56 @@
 .contenedor-main {
-    padding: var(--espaciado-l);
+    padding: var(--espaciado-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaciado-xl);
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 
-.contenedor-main header {
-    padding-bottom: var(--espaciado-m);
-    color: var(--color-primario)
+.main-header {
+    margin-bottom: var(--espaciado-s);
+}
+
+.main-header h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--color-primario);
+    letter-spacing: -0.02em;
+}
+
+.main-header p {
+    color: var(--color-texto-secundario);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
 }
 
 .contenedor-metricas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--espaciado-m);
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--espaciado-l);
 }
 
-.contenedor-grafico {
+.seccion-dashboard-graficos {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    gap: var(--espaciado-m);
-    justify-items: center;
+    gap: var(--espaciado-xl);
 }
 
-@media screen and (max-width: 768px) {
-    .contenedor-grafico {
+.seccion-productividad {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: var(--espaciado-xl);
+}
+
+.bloque-productividad {
+    display: flex;
+    flex-direction: column;
+    gap: var(--espaciado-xl);
+}
+
+@media screen and (max-width: 1024px) {
+    .seccion-dashboard-graficos, .seccion-productividad {
         grid-template-columns: 1fr;
     }
-}
+}

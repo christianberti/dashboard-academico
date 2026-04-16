@@ -97,7 +97,7 @@ function App() {
         estado: m.estado,
         nota: m.nota,
         anio_sugerido: m.plan_estudios.anio_sugerido
-      }));
+      })).sort((a, b) => a.anio_sugerido - b.anio_sugerido);
       setMaterias(materiasFormateadas);
     }
   };

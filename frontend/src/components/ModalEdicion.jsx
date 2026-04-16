@@ -27,9 +27,9 @@ const ModalEdicion = ({ materia, alCerrar, alGuardar }) => {
                     onChange={(e) => setMateriaEstado(e.target.value)}
                 >
                     <option value="Pendiente">Pendiente</option>
-                    <option value="En curso">En Curso</option>
+                    <option value="En Curso">En Curso</option>
                     <option value="Aprobada">Aprobada</option>
-                    <option value="Final pendiente">Final Pendiente</option>
+                    <option value="Final Pendiente">Final Pendiente</option>
                 </select>
 
                 {materiaEstado === "Aprobada" && (

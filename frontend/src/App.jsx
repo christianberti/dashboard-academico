@@ -26,7 +26,7 @@ function App() {
     <div className="contenedor-principal">
       <NavegacionLateral />
       <Routes>
-        <Route path="/resumen" element={<ContenidoPrincipal materias={materias}/>} />
+        <Route path="/" element={<ContenidoPrincipal materias={materias}/>} />
         <Route path="/materias" element={<ListaMaterias materias={materias} setMaterias={setMaterias}/>} />
       </Routes>
     </div>

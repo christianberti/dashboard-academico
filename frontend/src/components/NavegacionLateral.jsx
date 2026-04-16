@@ -19,7 +19,7 @@ const NavegacionLateral = () => {
         <ul className="lista-nav">
           {secciones.map((registro) => (
             <li key={registro} className="item-nav">
-              <Link to={registro.toLowerCase().replace(/\s+/g, "-")}>
+              <Link to={registro === "Resumen" ? "/" : `/${registro.toLowerCase().replace(/\s+/g, "-")}`}>
                 {registro}
               </Link>
             </li>

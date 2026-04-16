@@ -41,7 +41,7 @@ const LoginAuth = () => {
         <div className="auth-container">
             <div className="auth-card">
                 <header className="auth-header">
-                    <h1>Academic Hub</h1>
+                    <h1>Estudiar en Informatica</h1>
                     <p>{isSignUp ? 'Crea tu cuenta para empezar' : 'Bienvenido de nuevo'}</p>
                 </header>
 
@@ -50,9 +50,9 @@ const LoginAuth = () => {
                 <form className="auth-form" onSubmit={handleAuth}>
                     <div className="auth-field">
                         <label>Email</label>
-                        <input 
-                            type="email" 
-                            placeholder="tu@email.com" 
+                        <input
+                            type="email"
+                            placeholder="tu@email.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
@@ -60,9 +60,9 @@ const LoginAuth = () => {
                     </div>
                     <div className="auth-field">
                         <label>Contraseña</label>
-                        <input 
-                            type="password" 
-                            placeholder="••••••••" 
+                        <input
+                            type="password"
+                            placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required

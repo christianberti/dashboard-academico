@@ -45,11 +45,10 @@ const NavegacionLateral = ({ carreraActiva, todasCarreras, alCambiarCarrera }) =
                 onClick={(e) => {
                   e.stopPropagation();
                   setSelectorAbierto(false);
-                  // Aquí dispararemos el modal de inscripción
                   onAbrirSelector();
                 }}
               >
-                + Inscribirse en otra carrera
+                + Agregar otra carrera
               </div>
             </div>
           )}

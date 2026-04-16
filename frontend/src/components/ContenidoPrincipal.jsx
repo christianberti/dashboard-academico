@@ -8,13 +8,22 @@ import TarjetaMetrica from "./TarjetaMetrica.jsx";
 import CalendarioExamenes from "./CalendarioExamenes.jsx";
 import ListaExamenes from "./ListaExamenes.jsx";
 import ModalEdicionExamen from "./ModalEdicionExamen.jsx";
+import ModalArchivos from "./ModalArchivos.jsx";
 import { supabase } from "../supabaseClient";
+import { Folder } from "lucide-react";
 
 const ContenidoPrincipal = ({ materias }) => {
     // Estado de exámenes con persistencia en Supabase
     const [examenes, setExamenes] = useState([]);
     const [cargandoExamenes, setCargandoExamenes] = useState(true);
     const [examenAEditar, setExamenAEditar] = useState(null);
+    const [modalArchivosAbierto, setModalArchivosAbierto] = useState(false);
+    const [materiaSeleccionada, setMateriaSeleccionada] = useState(null);
+
+    const abrirArchivos = (materia) => {
+        setMateriaSeleccionada(materia);
+        setModalArchivosAbierto(true);
+    };
 
     useEffect(() => {
         const cargarExamenes = async () => {
@@ -172,7 +181,7 @@ const ContenidoPrincipal = ({ materias }) => {
 
             <section className="seccion-dashboard-graficos">
                 <GraficoProgresoCarrera datosMaterias={materias} aprobadas={aprobadas} enCurso={enCurso}/>
-                <MateriasEnCurso enCurso={enCurso} />
+                <MateriasEnCurso enCurso={enCurso} onAbrirArchivos={abrirArchivos} />
             </section>
 
             {/* Reposicionado: Lista de exámenes con alta prioridad */}
@@ -199,6 +208,13 @@ const ContenidoPrincipal = ({ materias }) => {
                     materiasDisponibles={materias}
                     alCerrar={() => setExamenAEditar(null)}
                     alGuardar={guardarEdicionExamen}
+                />
+            )}
+
+            {modalArchivosAbierto && materiaSeleccionada && (
+                <ModalArchivos 
+                    materia={materiaSeleccionada}
+                    onClose={() => setModalArchivosAbierto(false)}
                 />
             )}
 

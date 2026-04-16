@@ -1,5 +1,3 @@
-const API_BASE_URL = "https://dashboard-academico.infinityfreeapp.com/backend";
-
-export default API_BASE_URL;
-
-
+// Configuración de Supabase
+export const SUPABASE_URL = "https://fyjkkkbelpawtfzsikrm.supabase.co";
+export const SUPABASE_ANON_KEY = "sb_publishable_yXPLvH2Kw7TpbsLZRfFWfQ_HORwokri";

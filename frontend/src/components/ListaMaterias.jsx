@@ -3,7 +3,7 @@ import "./ListaMaterias.css";
 import TarjetaMateria from "./TarjetaMateria";
 import ModalEdicion from "./ModalEdicion";
 import ModalArchivos from "./ModalArchivos";
-import API_BASE_URL from "../config";
+import { supabase } from "../supabaseClient";
 
 const ListaMaterias = ({ materias, setMaterias }) => {
     const [busqueda, setBusqueda] = useState("");
@@ -48,39 +48,34 @@ const ListaMaterias = ({ materias, setMaterias }) => {
 
     const actualizarMateriaEnBD = async ({ id, nuevoEstado, nuevaNota }) => {
         try {
-            const respuesta = await fetch(
-                `${API_BASE_URL}/actualizar_materia.php`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        id_materia: id,
-                        estado: nuevoEstado,
-                        nota: nuevoEstado === "Aprobada" ? nuevaNota : null,
-                        usuario_id: 1,
-                    }),
-                },
+            const { error } = await supabase
+                .from('progreso_estudiante')
+                .update({
+                    estado: nuevoEstado,
+                    nota: nuevoEstado === "Aprobada" ? nuevaNota : null
+                })
+                .eq('id', id);
+
+            if (error) throw error;
+
+            setMaterias((prevMaterias) =>
+                prevMaterias.map((m) => {
+                    if (m.id == id) {
+                        return {
+                            ...m,
+                            estado: nuevoEstado,
+                            nota: nuevoEstado === "Aprobada" ? nuevaNota : null,
+                        };
+                    }
+                    return m;
+                }),
             );
 
-            if (respuesta.ok) {
-                setMaterias((prevMaterias) =>
-                    prevMaterias.map((m) => {
-                        if (m.id == id) {
-                            return {
-                                ...m,
-                                estado: nuevoEstado,
-                                nota: nuevoEstado === "Aprobada" ? nuevaNota : null,
-                            };
-                        }
-                        return m;
-                    }),
-                );
-
-                setModalEdicionAbierto(false);
-                setMateriaSeleccionada(null);
-            }
+            setModalEdicionAbierto(false);
+            setMateriaSeleccionada(null);
         } catch (error) {
-            console.error("Error de red:", error);
+            console.error("Error al actualizar materia:", error);
+            alert("Hubo un error al actualizar la materia");
         }
     };
 

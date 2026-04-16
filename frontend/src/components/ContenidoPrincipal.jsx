@@ -7,70 +7,94 @@ import PomodoroTimer from "./PomodoroTimer.jsx";
 import TarjetaMetrica from "./TarjetaMetrica.jsx";
 import CalendarioExamenes from "./CalendarioExamenes.jsx";
 import ListaExamenes from "./ListaExamenes.jsx";
-import API_BASE_URL from "../config";
+import { supabase } from "../supabaseClient";
 
 const ContenidoPrincipal = ({ materias }) => {
-    // Estado de exámenes con persistencia en Base de Datos
+    // Estado de exámenes con persistencia en Supabase
     const [examenes, setExamenes] = useState([]);
     const [cargandoExamenes, setCargandoExamenes] = useState(true);
 
     useEffect(() => {
-        fetch(`${API_BASE_URL}/obtener_examenes.php`)
-            .then(res => res.json())
-            .then(datos => {
-                setExamenes(datos);
-                setCargandoExamenes(false);
-            })
-            .catch(err => {
-                console.error("Error al cargar exámenes:", err);
-                setCargandoExamenes(false);
-            });
+        const cargarExamenes = async () => {
+            const { data, error } = await supabase
+                .from('eventos_examenes')
+                .select(`
+                    id,
+                    nombre,
+                    fecha,
+                    completado,
+                    id_progreso
+                `)
+                .order('fecha', { ascending: true });
+
+            if (error) {
+                console.error("Error al cargar exámenes:", error);
+            } else {
+                setExamenes(data);
+            }
+            setCargandoExamenes(false);
+        };
+
+        cargarExamenes();
     }, []);
 
-    const agregarExamen = (nuevo) => {
-        fetch(`${API_BASE_URL}/gestionar_examenes.php`, {
-            method: 'POST',
-            body: JSON.stringify(nuevo),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.id) {
-                // Actualizamos localmente con el ID real de la base de datos
-                const examenConId = { ...nuevo, id: data.id };
-                setExamenes([...examenes, examenConId].sort((a, b) => new Date(a.fecha) - new Date(b.fecha)));
-            }
-        })
-        .catch(err => console.error("Error al guardar examen:", err));
-    };
+    const agregarExamen = async (nuevo) => {
+        try {
+            // Buscamos el id_progreso del estudiante para esa materia
+            const materiaEnProgreso = materias.find(m => m.nombre === nuevo.nombre);
+            if (!materiaEnProgreso) throw new Error("Materia no encontrada en tu plan");
 
-    const eliminarExamen = (id) => {
-        if (window.confirm("¿Estás seguro de que deseas eliminar este examen?")) {
-            fetch(`${API_BASE_URL}/gestionar_examenes.php`, {
-                method: 'DELETE',
-                body: JSON.stringify({ id }),
-                headers: { 'Content-Type': 'application/json' }
-            })
-            .then(() => {
-                setExamenes(examenes.filter(e => e.id !== id));
-            })
-            .catch(err => console.error("Error al eliminar examen:", err));
+            const { data, error } = await supabase
+                .from('eventos_examenes')
+                .insert([{
+                    id_progreso: materiaEnProgreso.id,
+                    nombre: nuevo.nombre,
+                    fecha: nuevo.fecha,
+                    completado: false
+                }])
+                .select();
+
+            if (error) throw error;
+
+            if (data) {
+                setExamenes([...examenes, data[0]].sort((a, b) => new Date(a.fecha) - new Date(b.fecha)));
+            }
+        } catch (err) {
+            console.error("Error al guardar examen:", err.message);
+            alert(err.message);
         }
     };
 
-    const toggleExamenCompletado = (id) => {
-        fetch(`${API_BASE_URL}/gestionar_examenes.php`, {
-            method: 'PUT',
-            body: JSON.stringify({ id, toggleCompletado: true }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(() => {
-            setExamenes(examenes.map(e => e.id === id ? { ...e, completado: !e.completado } : e));
-        })
-        .catch(err => console.error("Error al actualizar examen:", err));
+    const eliminarExamen = async (id) => {
+        if (window.confirm("¿Estás seguro de que deseas eliminar este examen?")) {
+            const { error } = await supabase
+                .from('eventos_examenes')
+                .delete()
+                .eq('id', id);
+
+            if (error) {
+                console.error("Error al eliminar examen:", error);
+            } else {
+                setExamenes(examenes.filter(e => e.id !== id));
+            }
+        }
     };
 
-    const editarExamen = (examenActualizado) => {
+    const toggleExamenCompletado = async (id) => {
+        const examen = examenes.find(e => e.id === id);
+        const { error } = await supabase
+            .from('eventos_examenes')
+            .update({ completado: !examen.completado })
+            .eq('id', id);
+
+        if (error) {
+            console.error("Error al actualizar examen:", error);
+        } else {
+            setExamenes(examenes.map(e => e.id === id ? { ...e, completado: !e.completado } : e));
+        }
+    };
+
+    const editarExamen = async (examenActualizado) => {
         const nuevoNombre = prompt("Materia del examen:", examenActualizado.nombre);
         if (nuevoNombre === null) return;
 
@@ -82,19 +106,31 @@ const ContenidoPrincipal = ({ materias }) => {
             return;
         }
 
-        fetch(`${API_BASE_URL}/gestionar_examenes.php`, {
-            method: 'PUT',
-            body: JSON.stringify({ id: examenActualizado.id, nombre: nuevoNombre, fecha: nuevaFecha }),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(() => {
+        try {
+            const materiaEnProgreso = materias.find(m => m.nombre === nuevoNombre);
+            if (!materiaEnProgreso) throw new Error("Materia no encontrada");
+
+            const { error } = await supabase
+                .from('eventos_examenes')
+                .update({ 
+                    nombre: nuevoNombre, 
+                    fecha: nuevaFecha,
+                    id_progreso: materiaEnProgreso.id
+                })
+                .eq('id', examenActualizado.id);
+
+            if (error) throw error;
+
             setExamenes(examenes.map(e => 
                 e.id === examenActualizado.id 
-                ? { ...e, nombre: nuevoNombre, fecha: nuevaFecha } 
+                ? { ...e, nombre: nuevoNombre, fecha: nuevaFecha, id_progreso: materiaEnProgreso.id } 
                 : e
             ).sort((a, b) => new Date(a.fecha) - new Date(b.fecha)));
-        })
-        .catch(err => console.error("Error al editar examen:", err));
+
+        } catch (err) {
+            console.error("Error al editar examen:", err.message);
+            alert(err.message);
+        }
     };
 
     const aprobadas = materias.filter((m) => m.estado === "Aprobada").length;

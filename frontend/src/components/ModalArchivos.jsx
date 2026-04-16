@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, ExternalLink, Plus, Trash2, FileText, Link as LinkIcon } from 'lucide-react';
-import API_BASE_URL from '../config';
+import { supabase } from '../supabaseClient';
 import './ModalArchivos.css';
 
 const ModalArchivos = ({ materia, onClose }) => {
@@ -10,53 +10,58 @@ const ModalArchivos = ({ materia, onClose }) => {
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        fetch(`${API_BASE_URL}/gestionar_archivos.php?id_progreso=${materia.id}`)
-            .then(res => res.json())
-            .then(datos => {
-                setArchivos(datos);
-                setCargando(false);
-            })
-            .catch(err => {
-                console.error("Error al cargar archivos:", err);
-                setCargando(false);
-            });
+        const cargarArchivos = async () => {
+            const { data, error } = await supabase
+                .from('archivos_materia')
+                .select('*')
+                .eq('id_progreso', materia.id)
+                .order('fecha_subida', { ascending: false });
+
+            if (error) {
+                console.error("Error al cargar archivos:", error);
+            } else {
+                setArchivos(data);
+            }
+            setCargando(false);
+        };
+
+        cargarArchivos();
     }, [materia.id]);
 
-    const agregarArchivo = (e) => {
+    const agregarArchivo = async (e) => {
         e.preventDefault();
         if (!nombre || !url) return;
 
-        const nuevo = {
-            id_progreso: materia.id,
-            nombre_archivo: nombre,
-            url_archivo: url,
-            tipo_archivo: 'link'
-        };
+        const { data, error } = await supabase
+            .from('archivos_materia')
+            .insert([{
+                id_progreso: materia.id,
+                nombre_archivo: nombre,
+                url_archivo: url,
+                tipo_archivo: 'link'
+            }])
+            .select();
 
-        fetch(`${API_BASE_URL}/gestionar_archivos.php`, {
-            method: 'POST',
-            body: JSON.stringify(nuevo),
-            headers: { 'Content-Type': 'application/json' }
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (data.id) {
-                setArchivos([{ ...nuevo, id: data.id, fecha_subida: new Date().toISOString() }, ...archivos]);
-                setNombre('');
-                setUrl('');
-            }
-        })
-        .catch(err => console.error("Error al guardar archivo:", err));
+        if (error) {
+            console.error("Error al guardar archivo:", error);
+        } else if (data) {
+            setArchivos([data[0], ...archivos]);
+            setNombre('');
+            setUrl('');
+        }
     };
 
-    const eliminarArchivo = (id) => {
-        fetch(`${API_BASE_URL}/gestionar_archivos.php?id=${id}`, {
-            method: 'DELETE'
-        })
-        .then(() => {
+    const eliminarArchivo = async (id) => {
+        const { error } = await supabase
+            .from('archivos_materia')
+            .delete()
+            .eq('id', id);
+
+        if (error) {
+            console.error("Error al eliminar archivo:", error);
+        } else {
             setArchivos(archivos.filter(a => a.id !== id));
-        })
-        .catch(err => console.error("Error al eliminar archivo:", err));
+        }
     };
 
     return (

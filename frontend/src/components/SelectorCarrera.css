@@ -1,0 +1,135 @@
+.selector-carrera-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.selector-carrera-card {
+  width: 100%;
+  max-width: 600px;
+  background: var(--color-card);
+  padding: 40px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.contenedor-cerrar {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.boton-cerrar-selector {
+  background: transparent;
+  border: none;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.boton-cerrar-selector:hover {
+  color: var(--color-primario);
+  transform: scale(1.1);
+}
+
+.selector-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.selector-header h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.selector-header p {
+  color: var(--color-texto-secundario);
+}
+
+.lista-carreras-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-bottom: 30px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* Scrollbar styling */
+.lista-carreras-grid::-webkit-scrollbar {
+  width: 6px;
+}
+.lista-carreras-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.opcion-carrera {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.opcion-carrera:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.opcion-carrera.seleccionada {
+  border-color: var(--color-primario);
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.opcion-carrera span {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: white;
+}
+
+.selector-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.boton-confirmar-carrera {
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--color-primario);
+  color: white;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.boton-confirmar-carrera:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.info-seleccion {
+  font-size: 0.9rem;
+  color: var(--color-texto-secundario);
+  text-align: center;
+}

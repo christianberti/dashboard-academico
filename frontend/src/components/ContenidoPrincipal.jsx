@@ -7,12 +7,14 @@ import PomodoroTimer from "./PomodoroTimer.jsx";
 import TarjetaMetrica from "./TarjetaMetrica.jsx";
 import CalendarioExamenes from "./CalendarioExamenes.jsx";
 import ListaExamenes from "./ListaExamenes.jsx";
+import ModalEdicionExamen from "./ModalEdicionExamen.jsx";
 import { supabase } from "../supabaseClient";
 
 const ContenidoPrincipal = ({ materias }) => {
     // Estado de exámenes con persistencia en Supabase
     const [examenes, setExamenes] = useState([]);
     const [cargandoExamenes, setCargandoExamenes] = useState(true);
+    const [examenAEditar, setExamenAEditar] = useState(null);
 
     useEffect(() => {
         const cargarExamenes = async () => {
@@ -94,27 +96,20 @@ const ContenidoPrincipal = ({ materias }) => {
         }
     };
 
-    const editarExamen = async (examenActualizado) => {
-        const nuevoNombre = prompt("Materia del examen:", examenActualizado.nombre);
-        if (nuevoNombre === null) return;
+    const editarExamen = (examen) => {
+        setExamenAEditar(examen);
+    };
 
-        const nuevaFecha = prompt("Nueva fecha (AAAA-MM-DD):", examenActualizado.fecha);
-        if (nuevaFecha === null) return;
-
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(nuevaFecha)) {
-            alert("Formato de fecha inválido. Use AAAA-MM-DD");
-            return;
-        }
-
+    const guardarEdicionExamen = async (examenActualizado) => {
         try {
-            const materiaEnProgreso = materias.find(m => m.nombre === nuevoNombre);
+            const materiaEnProgreso = materias.find(m => m.nombre === examenActualizado.nombre);
             if (!materiaEnProgreso) throw new Error("Materia no encontrada");
 
             const { error } = await supabase
                 .from('eventos_examenes')
                 .update({ 
-                    nombre: nuevoNombre, 
-                    fecha: nuevaFecha,
+                    nombre: examenActualizado.nombre, 
+                    fecha: examenActualizado.fecha,
                     id_progreso: materiaEnProgreso.id
                 })
                 .eq('id', examenActualizado.id);
@@ -123,10 +118,11 @@ const ContenidoPrincipal = ({ materias }) => {
 
             setExamenes(examenes.map(e => 
                 e.id === examenActualizado.id 
-                ? { ...e, nombre: nuevoNombre, fecha: nuevaFecha, id_progreso: materiaEnProgreso.id } 
+                ? { ...e, nombre: examenActualizado.nombre, fecha: examenActualizado.fecha, id_progreso: materiaEnProgreso.id } 
                 : e
             ).sort((a, b) => new Date(a.fecha) - new Date(b.fecha)));
 
+            setExamenAEditar(null);
         } catch (err) {
             console.error("Error al editar examen:", err.message);
             alert(err.message);
@@ -196,6 +192,15 @@ const ContenidoPrincipal = ({ materias }) => {
                 </div>
                 <ListaDeTareas />
             </section>
+
+            {examenAEditar && (
+                <ModalEdicionExamen 
+                    examen={examenAEditar}
+                    materiasDisponibles={materias}
+                    alCerrar={() => setExamenAEditar(null)}
+                    alGuardar={guardarEdicionExamen}
+                />
+            )}
 
             <section className="contenedor-detalle-materias"></section>
         </main>

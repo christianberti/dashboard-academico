@@ -60,9 +60,14 @@
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: white;
+  color: var(--color-texto);
   font-size: 1rem;
   transition: all 0.3s ease;
+}
+
+.auth-field input::placeholder {
+  color: var(--color-texto-secundario);
+  opacity: 0.6;
 }
 
 .auth-field input:focus {

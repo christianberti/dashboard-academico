@@ -6,6 +6,8 @@ import ListaMaterias from "./components/ListaMaterias";
 import NavegacionLateral from "./components/NavegacionLateral";
 import LoginAuth from "./components/LoginAuth";
 import SelectorCarrera from "./components/SelectorCarrera";
+import HeaderMovil from "./components/HeaderMovil";
+import Configuracion from "./components/Configuracion";
 import { supabase } from "./supabaseClient";
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
   const [carreraActiva, setCarreraActiva] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [mostrarSelector, setMostrarSelector] = useState(false);
+  const [menuAbierto, setMenuAbierto] = useState(false);
 
   // 1. Manejar Sesión
   useEffect(() => {
@@ -119,17 +122,24 @@ function App() {
   if (!session) return <LoginAuth />;
 
   return (
-    <div className="contenedor-principal">
-      <NavegacionLateral 
-        carreraActiva={carreraActiva} 
-        todasCarreras={carrerasUsuario} 
-        alCambiarCarrera={cambiarCarreraActiva}
-        onAbrirSelector={() => setMostrarSelector(true)}
-      />
-      <Routes>
-        <Route path="/" element={<ContenidoPrincipal materias={materias}/>} />
-        <Route path="/materias" element={<ListaMaterias materias={materias} setMaterias={setMaterias}/>} />
-      </Routes>
+    <div className={`contenedor-app-wrapper ${menuAbierto ? 'menu-visible' : ''}`}>
+      <HeaderMovil onToggleMenu={() => setMenuAbierto(!menuAbierto)} />
+      
+      <div className="contenedor-principal">
+        <NavegacionLateral 
+          carreraActiva={carreraActiva} 
+          todasCarreras={carrerasUsuario} 
+          alCambiarCarrera={cambiarCarreraActiva}
+          onAbrirSelector={() => setMostrarSelector(true)}
+          menuAbierto={menuAbierto}
+          alCerrarMenu={() => setMenuAbierto(false)}
+        />
+        <Routes>
+          <Route path="/" element={<ContenidoPrincipal materias={materias}/>} />
+          <Route path="/materias" element={<ListaMaterias materias={materias} setMaterias={setMaterias}/>} />
+          <Route path="/configuracion" element={<Configuracion carrerasUsuario={carrerasUsuario} onCarreraEliminada={traerCarrerasUsuario} />} />
+        </Routes>
+      </div>
 
       {mostrarSelector && (
         <SelectorCarrera 

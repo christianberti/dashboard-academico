@@ -1,5 +1,36 @@
+/* Main App Layout */
 .contenedor-principal {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  background-color: var(--color-fondo);
+}
+
+/* Auth screens should be full width */
+.auth-container {
+  width: 100vw;
   height: 100vh;
+}
+
+/* Generic Loading/Error */
+.cargando-global {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--color-texto-secundario);
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .contenedor-principal {
+    grid-template-columns: 1fr;
+    display: block; /* Avoid grid collisions on mobile drawer */
+  }
+
+  .contenedor-app-wrapper.menu-visible {
+    overflow: hidden;
+  }
 }

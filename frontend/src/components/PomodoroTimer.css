@@ -20,9 +20,9 @@
 }
 
 .contenedor-timer h2 {
-    color: var(--color-primario);
-    font-size: 1.25rem;
-    font-weight: 700;
+  color: var(--color-primario);
+  font-size: 1.25rem;
+  font-weight: 700;
 }
 
 .contenido-timer {
@@ -55,15 +55,18 @@
 .boton-primario:hover {
   background-color: var(--color-primario-claro);
   transform: translateY(-2px);
+
 }
 
-.boton-secundario {
-  background-color: var(--color-neutro-fondo);
+.boton-secundario-pomodoro {
+  background: var(--color-neutro-fondo);
   color: var(--color-texto-secundario);
+  border: 1px solid var(--color-borde);
 }
 
-.boton-secundario:hover {
-  background-color: #e2e8f0;
-  color: var(--color-texto);
+.boton-secundario-pomodoro:hover {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #0369a1;
+  transform: translateY(-2px);
 }
-

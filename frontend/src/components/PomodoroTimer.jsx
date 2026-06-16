@@ -38,7 +38,7 @@ const PomodoroTimer = () => {
                     >
                         {isActive ? 'Pausar' : 'Empezar'}
                     </button>
-                    <button className='boton-secundario'
+                    <button className='boton-secundario-pomodoro'
                         onClick={() => { setIsActive(false); setPomodoro(1500); }}
                     >
                         Reiniciar

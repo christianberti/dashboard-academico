@@ -57,6 +57,7 @@ const CalendarioExamenes = ({ materias, alAgregarExamen }) => {
                         min={hoy}
                         onChange={(e) => setFecha(e.target.value)}
                         required
+                        max="2099-12-31"
                     />
                 </div>
                 <button type="submit" className="boton-agregar-examen">

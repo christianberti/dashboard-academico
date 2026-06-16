@@ -111,8 +111,6 @@
     background: rgba(231, 76, 60, 0.1);
     color: #e74c3c;
     border: none;
-    width: 36px;
-    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -121,7 +119,7 @@
     transition: all 0.2s;
 }
 
-.boton-borrar-carrera:hover:not(:disabled) {
+.boton-borrar-carrera:hover {
     background: #e74c3c;
     color: white;
 }

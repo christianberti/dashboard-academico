@@ -6,13 +6,11 @@
   background-color: var(--color-fondo);
 }
 
-/* Auth screens should be full width */
 .auth-container {
   width: 100vw;
   height: 100vh;
 }
 
-/* Generic Loading/Error */
 .cargando-global {
   display: flex;
   justify-content: center;
@@ -23,11 +21,10 @@
   color: var(--color-texto-secundario);
 }
 
-/* Mobile Adjustments */
 @media (max-width: 768px) {
   .contenedor-principal {
     grid-template-columns: 1fr;
-    display: block; /* Avoid grid collisions on mobile drawer */
+    display: block;
   }
 
   .contenedor-app-wrapper.menu-visible {

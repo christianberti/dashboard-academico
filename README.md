@@ -2,6 +2,8 @@
 
 ¡Bienvenido al Dashboard Académico definitivo para los estudiantes de la **Facultad de Informática (UNLP)**! Esta plataforma moderna ha sido diseñada para centralizar tu progreso, materiales y planificación en un solo lugar, con una experiencia de usuario de primer nivel.
 
+🔗 [Ver aplicación en vivo](https://estudiareninformatica.vercel.app/)
+
 ## ✨ Características Principales
 
 - **Gestión Multi-usuario**: Sistema de autenticación seguro (Login/Registro) con Supabase Auth.
@@ -27,11 +29,11 @@ Este proyecto utiliza un stack moderno para garantizar velocidad, seguridad y es
 
 1.  Clona el repositorio:
     ```bash
-    git clone https://github.com/christianberti/dashboard-academico.git
+    git clone https://github.com/christianberti/estudiar-en-informatica.git
     ```
 2.  Instala las dependencias:
     ```bash
-    cd dashboard-academico/frontend
+    cd estudiar-en-informatica/frontend
     npm install
     ```
 3.  Configura las variables de entorno en `src/config.js` con tus credenciales de Supabase.
